@@ -1,0 +1,96 @@
+name: Bug Report
+description: Create a report to help us improve
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+        Additional information helps us troubleshoot the issue faster.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: |
+        Please describe what problem you are experiencing.
+        Try to focus on the functional aspect of the issue, rather than technical details.
+      placeholder:
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Steps to reproduce the behavior
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected behavior
+      description: A clear and concise description of what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: Screenshot
+      description: If applicable, add screenshots to help explain your problem.
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional context
+      description: Add any other context about the problem.
+  - type: markdown
+    attributes:
+      value: Please describe your setup.
+  - type: textarea
+    id: sdk
+    attributes:
+      label: SDK
+      description: Which SDK are you using to send data to Jaeger?
+      placeholder: Jaeger Go vX.Y.Z, or OpenTelemetry Java vX.Y.Z
+  - type: textarea
+    id: pipeline
+    attributes:
+      label: Pipeline configuration
+      description: Please describe your data collection pipeline
+      placeholder: |
+        E.g., OTEL SDK -> OTEL collector -> Jaeger Collector -> Kafka -> Jaeger Ingester -> Elasticsearch
+        Or, OTEL SDK -> [OTLP] -> Jaeger-all-in-one
+        Or, Jaeger SDK -> jaeger-agent -> ...
+  - type: input
+    id: version
+    attributes:
+      label: Jaeger Version
+      description: Which version of Jaeger backend are you running?
+      placeholder: v1.36.0
+  - type: input
+    id: os
+    attributes:
+      label: Operating System
+      description: On which OS do you deploy Jaeger?
+      placeholder: Linux, Windows, etc.
+  - type: input
+    id: deployment
+    attributes:
+      label: Deployment model
+      description: How do you deploy Jaeger components?
+      placeholder: Docker, Kubernetes, binaries on bare metal, ...
+  - type: input
+    id: storage
+    attributes:
+      label: Stogage Backend
+      description: Which storage backend are you using
+      placeholder: Cassandra vX.Y, Elasticsearch v7.x, AWS Elasticsearch, ...
