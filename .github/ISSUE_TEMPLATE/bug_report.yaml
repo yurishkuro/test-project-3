@@ -13,9 +13,8 @@ body:
     attributes:
       label: What happened?
       description: |
-        Please describe the problem you are experiencing.
-        Try to focus on the functional aspect of the issue, rather than technical details,
-        such as what are you not able to do?
+        Please describe the problem you are experiencing. What's not working?
+        Try to focus on the functional aspect of the issue, rather than technical details.
       placeholder:
     validations:
       required: true
@@ -34,14 +33,9 @@ body:
     id: expected_behavior
     attributes:
       label: Expected behavior
-      description: A clear and concise description of what you expected to happen.
+      description: What do you expected to happen?
     validations:
       required: true
-  - type: textarea
-    id: screenshot
-    attributes:
-      label: Screenshot
-      description: If applicable, add screenshots to help explain your problem.
   - type: textarea
     id: logs
     attributes:
@@ -51,19 +45,24 @@ body:
         This will be automatically formatted into code, so no need for backticks.
       render: shell
   - type: textarea
+    id: screenshot
+    attributes:
+      label: Screenshot
+      description: If applicable, add screenshots to help explain your problem.
+  - type: textarea
     id: additional_context
     attributes:
       label: Additional context
       description: Add any other context about the problem.
   - type: markdown
     attributes:
-      value: "## Please describe your setup."
+      value: "## Please describe your Jaeger setup."
   - type: textarea
     id: sdk
     attributes:
       label: SDK
       description: Which SDK are you using to send data to Jaeger?
-      placeholder: Jaeger Go vX.Y.Z, or OpenTelemetry Java vX.Y.Z
+      placeholder: E.g., Jaeger Go vX.Y.Z, or OpenTelemetry Java vX.Y.Z
   - type: textarea
     id: pipeline
     attributes:
@@ -78,22 +77,22 @@ body:
     attributes:
       label: Jaeger Version
       description: Which version of Jaeger backend are you running?
-      placeholder: v1.36.0
+      placeholder: E.g., v1.36.0
   - type: input
     id: os
     attributes:
       label: Operating System
       description: On which OS do you deploy Jaeger?
-      placeholder: Linux, Windows, etc.
+      placeholder: E.g., Linux, Windows, etc.
   - type: input
     id: deployment
     attributes:
       label: Deployment model
       description: How do you deploy Jaeger components?
-      placeholder: Docker, Kubernetes, binaries on bare metal, ...
+      placeholder: E.g., Docker, Kubernetes, binaries on bare metal, ...
   - type: input
     id: storage
     attributes:
       label: Stogage Backend
       description: Which storage backend are you using
-      placeholder: Cassandra vX.Y, Elasticsearch v7.x, AWS Elasticsearch, ...
+      placeholder: E.g., Cassandra vX.Y, Elasticsearch v7.x, AWS Elasticsearch, ...
