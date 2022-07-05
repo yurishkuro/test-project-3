@@ -15,16 +15,6 @@ body:
           If you don't have a CNCF Slack account, you may sign up at: https://slack.cncf.io/.
 
         Additional information helps us troubleshoot the issue faster.
-
-## Proposal - what do you suggest to solve the problem or improve the existing situation?
-
-<!-- It's ok if you don't have one. -->
-
-## Any open questions to address
-
-<!-- Questions that should be answered before proceeding with implementation. -->
-
-
   - type: textarea
     id: requirement
     attributes:
