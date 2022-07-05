@@ -57,7 +57,7 @@ body:
   - type: markdown
     attributes:
       value: -
-        ## Jaeger setup
+        "## Jaeger setup"
         Please describe your Jaeger setup.
   - type: textarea
     id: sdk
