@@ -64,37 +64,37 @@ body:
     attributes:
       label: SDK
       description: Which SDK are you using to send data to Jaeger?
-      placeholder: E.g., Jaeger Go vX.Y.Z, or OpenTelemetry Java vX.Y.Z
+      placeholder: "Ex: Jaeger Go vX.Y.Z, or OpenTelemetry Java vX.Y.Z"
   - type: textarea
     id: pipeline
     attributes:
       label: Pipeline configuration
       description: Please describe your data collection pipeline configuration.
       placeholder: |
-        E.g., OTEL SDK -> OTEL collector -> Jaeger Collector -> Kafka -> Jaeger Ingester -> Elasticsearch
-        Or, OTEL SDK -> [OTLP] -> Jaeger-all-in-one
-        Or, Jaeger SDK -> jaeger-agent -> ...
+        Ex: OTEL SDK -> OTEL collector -> Jaeger Collector -> Kafka -> Jaeger Ingester -> Elasticsearch
+        Ex: OTEL SDK -> [OTLP] -> Jaeger-all-in-one
+        Ex: Jaeger SDK -> jaeger-agent -> ...
   - type: input
     id: version
     attributes:
       label: Jaeger Version
       description: Which version of Jaeger backend are you running?
-      placeholder: E.g., v1.36.0
+      placeholder: "Ex: v1.36.0"
   - type: input
     id: os
     attributes:
       label: Operating System
       description: On which OS do you deploy Jaeger?
-      placeholder: E.g., Linux, Windows, etc.
+      placeholder: "Ex: Linux, Windows, etc."
   - type: input
     id: deployment
     attributes:
       label: Deployment model
       description: How do you deploy Jaeger components?
-      placeholder: E.g., Docker, Kubernetes, binaries on bare metal, ...
+      placeholder: "Ex: Docker, Kubernetes, binaries on bare metal, ..."
   - type: input
     id: storage
     attributes:
       label: Stogage Backend
       description: Which storage backend are you using
-      placeholder: E.g., Cassandra vX.Y, Elasticsearch v7.x, AWS Elasticsearch, ...
+      placeholder: "Ex: Cassandra vX.Y, Elasticsearch v7.x, AWS Elasticsearch, ..."
