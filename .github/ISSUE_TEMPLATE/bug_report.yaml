@@ -6,7 +6,15 @@ body:
   - type: markdown
     attributes:
       value: |
+        Welcome to the Jaeger project! 👋🎉
         Thanks for taking the time to fill out this bug report!
+
+        Before you post:
+        - Please search for existing issues to avoid creating duplicate bugs/feature requests.
+        - Please be respectful and considerate of others when commenting on issues.
+        - If you only have a question, you may get a faster response by asking in [our chat room](https://cloud-native.slack.com/archives/CGG7NFUJ3)
+          - if you don't have an account, signup at: https://slack.cncf.io/
+
         Additional information helps us troubleshoot the issue faster.
   - type: textarea
     id: what-happened
