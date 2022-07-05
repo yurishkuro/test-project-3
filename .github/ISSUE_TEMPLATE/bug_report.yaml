@@ -13,8 +13,9 @@ body:
     attributes:
       label: What happened?
       description: |
-        Please describe what problem you are experiencing.
-        Try to focus on the functional aspect of the issue, rather than technical details.
+        Please describe the problem you are experiencing.
+        Try to focus on the functional aspect of the issue, rather than technical details,
+        such as what are you not able to do?
       placeholder:
     validations:
       required: true
@@ -22,7 +23,7 @@ body:
     id: reproduce
     attributes:
       label: Steps to reproduce
-      description: Steps to reproduce the behavior
+      description: How can we reproduce the issue?
       placeholder: |
         1.
         2.
