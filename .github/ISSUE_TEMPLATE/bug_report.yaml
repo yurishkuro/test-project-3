@@ -22,7 +22,7 @@ body:
       description: |
         Please describe the problem you are experiencing. What is not working?
         Try to focus on the functional aspect of the issue, rather than technical details.
-      placeholder:
+      placeholder: |
         As a [description of a user persona, e.g. Jaeger operator, Jaeger power user]
         I want [functionality]
         so that [benefit].
