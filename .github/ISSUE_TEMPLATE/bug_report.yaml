@@ -11,8 +11,8 @@ body:
 
         Before you post:
         - Please search for existing issues to avoid creating duplicate bugs/feature requests.
-        - Please be respectful and considerate of others when commenting on issues.
-        - If you only have a question, you may get a faster response by asking in [our chat room](https://cloud-native.slack.com/archives/CGG7NFUJ3)
+        - Please be respectful and considerate of others (see [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/main/code-of-conduct.md)).
+        - If you only have a question, you may get a faster response by asking in [our chat room](https://cloud-native.slack.com/archives/CGG7NFUJ3).
           - if you don't have an account, signup at: https://slack.cncf.io/
 
         Additional information helps us troubleshoot the issue faster.
