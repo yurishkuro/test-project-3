@@ -13,7 +13,7 @@ body:
     attributes:
       label: What happened?
       description: |
-        Please describe the problem you are experiencing. What's not working?
+        Please describe the problem you are experiencing. What is not working?
         Try to focus on the functional aspect of the issue, rather than technical details.
       placeholder:
     validations:
@@ -77,13 +77,13 @@ body:
   - type: input
     id: version
     attributes:
-      label: Jaeger Version
+      label: Jaeger backend version
       description: Which version of Jaeger backend are you running?
       placeholder: "Ex: v1.36.0"
   - type: input
     id: os
     attributes:
-      label: Operating System
+      label: Operating system
       description: On which OS do you deploy Jaeger?
       placeholder: "Ex: Linux, Windows, etc."
   - type: input
@@ -95,6 +95,6 @@ body:
   - type: input
     id: storage
     attributes:
-      label: Stogage Backend
+      label: Stogage backend
       description: Which storage backend are you using
       placeholder: "Ex: Cassandra vX.Y, Elasticsearch v7.x, AWS Elasticsearch, ..."
