@@ -39,8 +39,9 @@ body:
     id: proposal
     attributes:
       label: Proposal
-      description: What do you suggest to solve the problem or improve the existing situation?
-      placeholder: It's ok if you don't have one.
+      description: |
+        What do you suggest to solve the problem or improve the existing situation?
+        It's ok if you don't have one.
   - type: textarea
     id: questions
     attributes:
