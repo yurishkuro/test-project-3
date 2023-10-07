@@ -21,5 +21,6 @@ jobs:
       id: validate-semver
       run: |
         which egrep
-        echo v1.50.2 | egrep '^v\d+.\d+.\d+$'
+        # echo v1.50.2 | egrep '^v\d+.\d+.\d+$'
+        echo v1.50.2 | egrep '^v[0-9]+.[0-9]+.[0-9]+$'
 
