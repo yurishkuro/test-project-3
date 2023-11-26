@@ -30,4 +30,4 @@ runs:
         # See https://github.com/codecov/codecov-action/issues/837
         # This action exposes the token as env.CODECOV_TOKEN.
         # We cannot define it as "secret" as we need it accessible from forks.
-       token: fake-token
+        token: fake-token
