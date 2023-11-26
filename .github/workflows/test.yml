@@ -17,10 +17,8 @@ jobs:
       run: |
         git fetch --prune --unshallow --tags
 
-    - name: Fail early if the latest tag is not in semver format
-      id: validate-semver
-      run: |
-        which egrep
-        # echo v1.50.2 | egrep '^v\d+.\d+.\d+$'
-        echo v1.50.2 | egrep '^v[0-9]+.[0-9]+.[0-9]+$'
-
+    - name: Upload code coverage
+      uses: ./.github/actions/codecov
+      with:
+        files: cover.out,cover2.out
+        flags: unittests

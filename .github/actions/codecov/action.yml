@@ -1,0 +1,33 @@
+name: 'codecov'
+description: 'Submit code coverage to codecov'
+
+inputs:
+  files:
+    type: string
+    required: true
+    description: A comma-separated list of coverage reports to upload.
+  flags:
+    type: string
+    required: false
+    description: Codecov flags to use to tag the reposts.
+
+runs:
+  using: "composite"
+  steps:
+    - name: Remove excluded paths from reports
+      shell: bash
+      run: |
+        echo ${{ inputs.files }} ${{ inputs.flags }}
+
+    - name: Upload coverage to codecov
+      uses: codecov/codecov-action@894ff025c7b54547a9a2a1e9f228beae737ad3c2
+      with:
+        files: ${{ inputs.files }}
+        flags: ${{ inputs.flags }}
+        verbose: true
+        fail_ci_if_error: true
+        # Codecov upload often fails on rate limits if used without a token.
+        # See https://github.com/codecov/codecov-action/issues/837
+        # This action exposes the token as env.CODECOV_TOKEN.
+        # We cannot define it as "secret" as we need it accessible from forks.
+       token: fake-token
