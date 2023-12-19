@@ -1,0 +1,26 @@
+# Inspired by https://github.com/actions/setup-go/issues/21#issuecomment-997208686
+name: 'Install Go Tip'
+description: 'Install Go Tip toolchain'
+runs:
+  using: "composite"
+  steps:
+    - name: Get tip version
+      id: get_tip
+      shell: bash
+      run: |
+        set -xeuo pipefail
+        tip=$(git ls-remote https://github.com/golang/go.git HEAD | awk '{print $1;}')
+        echo "Tip version: ${tip}"
+        echo "version=${tip}" > $GITHUB_OUTPUT
+
+    - name: Download
+      shell: bash
+      run: |
+        set -xeuo pipefail
+        curl -vsL https://storage.googleapis.com/go-build-snap/go/linux-amd64/${{ steps.get_tip.version }}.tar.gz -o gotip.tar.gz
+        ls -lah gotip.tar.gz
+        mkdir -p ~/sdk/gotip
+        tar -C ~/sdk/gotip -xzf gotip.tar.gz
+        echo "GOROOT=$HOME/sdk/gotip" >> $GITHUB_ENV
+        echo "PATH=$HOME/go/bin:$HOME/sdk/gotip/bin/:$PATH" >> $GITHUB_ENV
+        go version
