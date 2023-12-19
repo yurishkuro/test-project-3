@@ -7,15 +7,17 @@ runs:
     - name: Install Go Tip
       shell: bash
       run: |
-        set -xeuo pipefail
+        set -euo pipefail
         tip=$(git ls-remote https://github.com/golang/go.git HEAD | awk '{print $1;}')
         echo "Tip version: ${tip}"
         curl -fsSL https://storage.googleapis.com/go-build-snap/go/linux-amd64/${tip}.tar.gz -o gotip.tar.gz
+        echo "Downloaded bundle:"
         ls -lah gotip.tar.gz
         export GOROOT="$HOME/sdk/gotip"
         mkdir -p $GOROOT
         tar -C $GOROOT -xzf gotip.tar.gz
         export PATH="$GOROOT/bin/:$PATH"
-        go version
         echo "GOROOT=$GOROOT" >> $GITHUB_ENV
         echo "PATH=$PATH" >> $GITHUB_ENV
+        echo "Active Go version:"
+        go version
