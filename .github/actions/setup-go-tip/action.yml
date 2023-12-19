@@ -4,20 +4,13 @@ description: 'Install Go Tip toolchain'
 runs:
   using: "composite"
   steps:
-    - name: Get tip version
-      id: get_tip
+    - name: Install Go Tip
       shell: bash
       run: |
         set -xeuo pipefail
         tip=$(git ls-remote https://github.com/golang/go.git HEAD | awk '{print $1;}')
         echo "Tip version: ${tip}"
-        echo "version=${tip}" > $GITHUB_OUTPUT
-
-    - name: Download
-      shell: bash
-      run: |
-        set -xeuo pipefail
-        curl -vsL https://storage.googleapis.com/go-build-snap/go/linux-amd64/${{ steps.get_tip.version }}.tar.gz -o gotip.tar.gz
+        curl -vsL https://storage.googleapis.com/go-build-snap/go/linux-amd64/${tip}.tar.gz -o gotip.tar.gz
         ls -lah gotip.tar.gz
         mkdir -p ~/sdk/gotip
         tar -C ~/sdk/gotip -xzf gotip.tar.gz
