@@ -21,7 +21,7 @@ jobs:
       run: /bin/bash -c "which lsof"
 
     - name: lsof
-      run: lsof -iTCP -sTCP:LISTEN -P +c0
+      run: /usr/bin/lsof -iTCP -sTCP:LISTEN -P +c0
 
     - name: Install Go Tip
       uses: ./.github/actions/setup-go-tip
