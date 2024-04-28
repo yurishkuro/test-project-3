@@ -17,6 +17,12 @@ jobs:
       run: |
         git fetch --prune --unshallow --tags
 
+    - name: lsof
+      run: lsof -iTCP -sTCP:LISTEN -P +c0
+
+    - name: which lsof
+      run: /bin/bash -c "which lsof"
+
     - name: Install Go Tip
       uses: ./.github/actions/setup-go-tip
 
