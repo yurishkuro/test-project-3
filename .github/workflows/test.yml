@@ -23,8 +23,15 @@ jobs:
     - name: lsof
       run: sudo /usr/bin/lsof -iTCP -sTCP:LISTEN -P +c0
 
-    - name: Install Go Tip
-      uses: ./.github/actions/setup-go-tip
+    - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
+      with:
+        go-version: 1.22.x
+
+    # - name: Install Go Tip
+    #   uses: ./.github/actions/setup-go-tip
+
+    - name: lsof via Go
+      run: sudo go run ./
 
     - name: Fail early if the latest tag is not in semver format
       id: validate-semver
