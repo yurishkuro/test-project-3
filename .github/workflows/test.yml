@@ -31,7 +31,7 @@ jobs:
     #   uses: ./.github/actions/setup-go-tip
 
     - name: lsof via Go
-      run: sudo go run ./
+      run: go run ./
 
     - name: Fail early if the latest tag is not in semver format
       id: validate-semver
