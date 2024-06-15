@@ -50,7 +50,9 @@ runs:
         gotip download
         export GOROOT="$(gotip env GOROOT)"
         echo "GOROOT=$GOROOT" >> $GITHUB_ENV
-        # rm -f $(which go)
+        # for some reason even though we put gotip at the front of PATH later,
+        # the go binary installed in previous step still takes precedence. So remove it.
+        rm -f $(which go)
 
     - name: Setup Go environemnt
       shell: bash
