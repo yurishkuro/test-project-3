@@ -3,6 +3,7 @@ name: test
 on:
   # allow running release workflow manually
   workflow_dispatch:
+  pull_request:
 
 jobs:
   test:
