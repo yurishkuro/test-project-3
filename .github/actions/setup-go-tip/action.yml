@@ -24,7 +24,6 @@ runs:
           sleep $wait_time
         done
         echo "success=${success}" >> $GITHUB_OUTPUT
-        false
 
     - name: Install Go Tip
       if: steps.download.outputs.success == 'true'
