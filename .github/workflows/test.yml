@@ -3,6 +3,7 @@ name: test
 on:
   # allow running release workflow manually
   workflow_dispatch:
+  pull_request:
 
 jobs:
   test:
@@ -27,11 +28,13 @@ jobs:
       with:
         go-version: 1.22.x
 
-    # - name: Install Go Tip
-    #   uses: ./.github/actions/setup-go-tip
+    - name: Install Go Tip
+      uses: ./.github/actions/setup-go-tip
 
     - name: lsof via Go
-      run: go run ./
+      run: |
+        go version
+        go run ./
 
     - name: Fail early if the latest tag is not in semver format
       id: validate-semver

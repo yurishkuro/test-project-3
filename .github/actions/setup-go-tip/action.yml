@@ -4,20 +4,71 @@ description: 'Install Go Tip toolchain'
 runs:
   using: "composite"
   steps:
-    - name: Install Go Tip
+    - name: Download Go Tip
+      id: download
       shell: bash
       run: |
         set -euo pipefail
         tip=$(git ls-remote https://github.com/golang/go.git HEAD | awk '{print $1;}')
         echo "Go Tip version: ${tip}"
-        curl -fsSL https://storage.googleapis.com/go-build-snap/go/linux-amd64/${tip}.tar.gz -o gotip.tar.gz
+        retries=3
+        wait_time=3
+        success=false
+        for ((i=1; i<=retries; i++)); do
+          url="https://storage.googleapis.com/go-build-snap/go/linux-amd64/${tip}.tar.gz"
+          if curl -fsSL -o gotip.tar.gz "$url"; then
+            success=true
+            break
+          fi
+          echo "Failed to download. Retrying in $wait_time seconds..."
+          sleep $wait_time
+        done
+        echo "success=${success}" >> $GITHUB_OUTPUT
+
+    - name: Install Go Tip
+      if: steps.download.outputs.success == 'true'
+      shell: bash
+      run: |
         echo "Downloaded bundle:"
         ls -lah gotip.tar.gz
         export GOROOT="$HOME/sdk/gotip"
         mkdir -p $GOROOT
         tar -C $GOROOT -xzf gotip.tar.gz
-        export PATH="$GOROOT/bin/:$PATH"
         echo "GOROOT=$GOROOT" >> $GITHUB_ENV
+
+    - name: Install some Go version
+      if: steps.download.outputs.success == 'false'
+      uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
+      with:
+        go-version: 1.22.x
+
+    - name: Build Go Tip from source
+      if: steps.download.outputs.success == 'false'
+      shell: bash
+      run: |
+        go install golang.org/dl/gotip@latest
+        gotip download
+        export GOROOT="$(gotip env GOROOT)"
+        echo "GOROOT=$GOROOT" >> $GITHUB_ENV
+        # for some reason even though we put gotip at the front of PATH later,
+        # the go binary installed in previous step still takes precedence. So remove it.
+        rm -f $(which go)
+
+    - name: Setup Go environemnt
+      shell: bash
+      run: |
+        $GOROOT/bin/go version
+        GOPATH="$HOME/gotip"
+        PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
+        echo "GOPATH=$GOPATH" >> $GITHUB_ENV
         echo "PATH=$PATH" >> $GITHUB_ENV
+
+    - name: Check Go Version
+      shell: bash
+      run: |
+        echo "GOPATH=$GOPATH"
+        echo "GOROOT=$GOROOT"
+        echo "which go"
+        which -a go
         echo "Active Go version:"
         go version
