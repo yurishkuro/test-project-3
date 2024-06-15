@@ -50,7 +50,7 @@ runs:
         gotip download
         export GOROOT="$(gotip env GOROOT)"
         echo "GOROOT=$GOROOT" >> $GITHUB_ENV
-        rm -f $(which go)
+        # rm -f $(which go)
 
     - name: Setup Go environemnt
       shell: bash
