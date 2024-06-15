@@ -28,8 +28,8 @@ jobs:
       with:
         go-version: 1.22.x
 
-    # - name: Install Go Tip
-    #   uses: ./.github/actions/setup-go-tip
+    - name: Install Go Tip
+      uses: ./.github/actions/setup-go-tip
 
     - name: lsof via Go
       run: go run ./
