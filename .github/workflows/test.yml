@@ -32,7 +32,9 @@ jobs:
       uses: ./.github/actions/setup-go-tip
 
     - name: lsof via Go
-      run: go run ./
+      run: |
+        go version
+        go run ./
 
     - name: Fail early if the latest tag is not in semver format
       id: validate-semver

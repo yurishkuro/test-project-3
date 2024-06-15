@@ -24,6 +24,7 @@ runs:
           sleep $wait_time
         done
         echo "success=${success}" >> $GITHUB_OUTPUT
+        false
 
     - name: Install Go Tip
       if: steps.download.outputs.success == 'true'
@@ -35,7 +36,12 @@ runs:
         mkdir -p $GOROOT
         tar -C $GOROOT -xzf gotip.tar.gz
         echo "GOROOT=$GOROOT" >> $GITHUB_ENV
-        false
+
+    - name: Install some Go version
+      if: steps.download.outputs.success == 'false'
+      uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
+      with:
+        go-version: 1.22.x
 
     - name: Build Go Tip from source
       if: steps.download.outputs.success == 'false'
@@ -49,7 +55,7 @@ runs:
     - name: Setup Go environemnt
       shell: bash
       run: |
-        GOPATH="$HOME/go"
+        GOPATH="$HOME/gotip"
         PATH="$GOROOT/bin/:$GOPATH/bin:$PATH"
         echo "GOPATH=$GOPATH" >> $GITHUB_ENV
         echo "PATH=$PATH" >> $GITHUB_ENV
@@ -57,5 +63,8 @@ runs:
     - name: Check Go Version
       shell: bash
       run: |
+        echo "GOPATH=$GOPATH"
+        echo "GOROOT=$GOROOT"
+        echo "binary: $(which go)"
         echo "Active Go version:"
         go version
