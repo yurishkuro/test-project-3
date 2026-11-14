@@ -1,0 +1,32 @@
+name: skip-test
+
+on:
+  push:
+    branches: [main]
+  pull_request_target:
+    types: [edited]
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  on-push:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "gives the main commit a combined status"
+
+  on-pr:
+    if: github.event_name == 'pull_request_target'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "pull request event"
+
+  work:
+    if: github.event_name == 'workflow_dispatch'
+    concurrency:
+      group: ${{ github.workflow }}
+      cancel-in-progress: false
+    runs-on: ubuntu-latest
+    steps:
+      - run: sleep 45
