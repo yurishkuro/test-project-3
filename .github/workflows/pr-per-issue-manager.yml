@@ -18,13 +18,13 @@ on:
         required: false
         type: boolean
         default: false
-      prNumber:
-        description: 'Pull request whose event requested this run; limits the comment lookups'
+      pullRequestNumber:
+        description: 'Pull request whose event asked for this run; narrows the comment lookups'
         required: false
         type: string
         default: ''
       issueNumber:
-        description: 'Issue whose label event requested this run; limits the comment lookups'
+        description: 'Issue whose label event asked for this run; narrows the comment lookups'
         required: false
         type: string
         default: ''
@@ -32,11 +32,12 @@ on:
 permissions: {}
 
 jobs:
-  # The reconcile job runs under a repository-wide concurrency group, and GitHub
-  # cancels a queued job of a group when a newer one arrives. This job keeps that
-  # cancellation off the pull request: it only dispatches the workflow, so the
-  # cancelled run belongs to the default branch and the pull request's check passes.
-  request:
+  # The label-duplicate-prs job runs under a repository-wide concurrency group,
+  # and GitHub cancels a queued job of a group when a newer one arrives. This job
+  # keeps that cancellation off the pull request: it only dispatches the workflow,
+  # so the cancelled run belongs to the default branch, and the pull request's
+  # check reports only whether the dispatch succeeded.
+  dispatch-duplicate-labelling:
     # Only the persistent maintainer override label on issues is relevant here.
     if: >-
       github.event_name == 'pull_request_target' ||
@@ -45,7 +46,7 @@ jobs:
     permissions:
       actions: write
     steps:
-      - name: Request a reconcile run
+      - name: Dispatch the duplicate labelling
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
@@ -55,11 +56,13 @@ jobs:
         run: >-
           gh workflow run pr-per-issue-manager.yml
           --ref "$DEFAULT_BRANCH"
-          -f prNumber="$PR_NUMBER"
+          -f pullRequestNumber="$PR_NUMBER"
           -f issueNumber="$ISSUE_NUMBER"
 
-  reconcile:
+  label-duplicate-prs:
     if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
+    # A skipped job does not acquire this job-level concurrency group, so the runs
+    # that only dispatch do not cancel a queued run.
     concurrency:
       group: per-issue-pr-policy-${{ github.repository }}
       cancel-in-progress: false
@@ -78,6 +81,6 @@ jobs:
         with:
           token: ${{ github.token }}
           per-issue-limit: 'true'
-          pull-request-number: ${{ inputs.prNumber }}
+          pull-request-number: ${{ inputs.pullRequestNumber }}
           issue-number: ${{ inputs.issueNumber }}
           dry-run: ${{ inputs.dryRun || 'false' }}

@@ -28,9 +28,10 @@ inputs:
     default: 'false'
   pull-request-number:
     description: >-
-      Pull request whose linked issues should be reconciled. Defaults to the pull
-      request that triggered the workflow, so only a workflow that runs on another
-      event needs to set this.
+      Pull request whose event asked for the run. Its comments, and those of pull
+      requests that share a linked issue with it, are reconciled in addition to
+      those of every duplicate. Defaults to the pull request that triggered the
+      workflow, so only a workflow that runs on another event needs to set this.
     required: false
     default: ''
   issue-number:
