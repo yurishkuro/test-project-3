@@ -392,11 +392,6 @@ function logIssueLimitResult(core, result, dryRun) {
 async function githubActionHandler({
   github, core, owner, repo, pullRequestNumber, issueNumber, dryRun = false
 }) {
-  if (!owner || !repo) {
-    core.setFailed('Owner and repo are required');
-    return;
-  }
-
   try {
     let result;
     if (pullRequestNumber) {

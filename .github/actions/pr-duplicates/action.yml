@@ -22,7 +22,8 @@ inputs:
   issue-number:
     description: >-
       Issue whose label event asked for the run. The comments of the pull requests
-      linked to it are checked in addition to those of every duplicate.
+      linked to it are checked in addition to those of every duplicate. Ignored
+      when pull-request-number is set.
     required: false
     default: ''
   dry-run:
