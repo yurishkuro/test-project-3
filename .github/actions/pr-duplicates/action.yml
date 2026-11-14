@@ -36,8 +36,7 @@ runs:
   steps:
     - uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
       env:
-        # The script stays in .github/scripts, where its dependencies and tests live.
-        DUPLICATES_SCRIPT: ${{ github.action_path }}/../../scripts/pr-duplicates.js
+        DUPLICATES_SCRIPT: ${{ github.action_path }}/pr-duplicates.js
         # Passed through the environment rather than interpolated into the script
         # body, so a value from a workflow input cannot inject JavaScript.
         DUPLICATES_PR_NUMBER: ${{ inputs.pull-request-number }}
