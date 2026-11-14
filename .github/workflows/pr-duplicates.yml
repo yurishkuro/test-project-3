@@ -64,7 +64,7 @@ jobs:
     # A skipped job does not acquire this job-level concurrency group, so the runs
     # that only dispatch do not cancel a queued run.
     concurrency:
-      group: duplicate-prs-${{ github.repository }}
+      group: ${{ github.workflow }}
       cancel-in-progress: false
     runs-on: ubuntu-latest
     permissions:
@@ -77,10 +77,9 @@ jobs:
           ref: ${{ github.event.repository.default_branch }}
 
       - name: Label duplicate pull requests
-        uses: ./.github/actions/pr-quota-manager
+        uses: ./.github/actions/pr-duplicates
         with:
           token: ${{ github.token }}
-          per-issue-limit: 'true'
           pull-request-number: ${{ inputs.pullRequestNumber }}
           issue-number: ${{ inputs.issueNumber }}
           dry-run: ${{ inputs.dryRun || 'false' }}
