@@ -1,0 +1,29 @@
+name: stack-payload
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, edited, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  dump:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print the stack field of the event payload
+        env:
+          STACK: ${{ toJSON(github.event.pull_request.stack) }}
+          KEYS: ${{ toJSON(github.event.pull_request) }}
+        run: |
+          echo "stack=$STACK"
+          echo "$KEYS" | jq -c 'keys'
+
+  skipped-on-stack:
+    if: github.event.pull_request.stack == null
+    concurrency:
+      group: stack-payload-${{ github.repository }}
+      cancel-in-progress: false
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "not a stacked PR"
