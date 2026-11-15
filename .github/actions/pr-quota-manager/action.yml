@@ -28,7 +28,6 @@ runs:
   steps:
     - uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
       env:
-        QUOTA_SCRIPT: ${{ github.action_path }}/pr-quota-manager.js
         # Passed through the environment rather than interpolated into the script
         # body, so an author-controlled username cannot inject JavaScript.
         QUOTA_USERNAME: ${{ inputs.username }}
@@ -36,7 +35,7 @@ runs:
       with:
         github-token: ${{ inputs.token }}
         script: |
-          const handler = require(process.env.QUOTA_SCRIPT)
+          const handler = require('${{ github.action_path }}/pr-quota-manager.js')
           const username = context.payload.pull_request?.user?.login || process.env.QUOTA_USERNAME
           if (!username) {
             core.setFailed('Unable to determine username for quota processing. Aborting.')

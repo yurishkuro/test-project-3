@@ -36,7 +36,6 @@ runs:
   steps:
     - uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
       env:
-        DUPLICATES_SCRIPT: ${{ github.action_path }}/pr-duplicates.js
         # Passed through the environment rather than interpolated into the script
         # body, so a value from a workflow input cannot inject JavaScript.
         DUPLICATES_PR_NUMBER: ${{ inputs.pull-request-number }}
@@ -45,7 +44,7 @@ runs:
       with:
         github-token: ${{ inputs.token }}
         script: |
-          const handler = require(process.env.DUPLICATES_SCRIPT)
+          const handler = require('${{ github.action_path }}/pr-duplicates.js')
           await handler({
             github,
             core,
